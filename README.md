@@ -4,7 +4,6 @@
  ## Usage
 
 ``` csharp
- 
  List<Book> allBooks = _someBookRepository.GetAllBooksFromDatabase();
  Pagination<Book> pager = new(allBooks, 5)   //pageSize = 5, page = null so it starts at page 1
 
@@ -15,7 +14,7 @@
 
 ### Looping
 ```csharp
-//If the NextPage() or the PreviousPage() functions would go out of range, they just return an empty IEnumerable.
+//If the NextPage() or the PreviousPage() functions would go out of range, the CurrentPage property just returns an empty IEnumerable.
 while (pager.CurrentPage.Any())
 {
     var booksOnPage = pager.CurrentPage;

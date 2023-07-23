@@ -1,4 +1,3 @@
-
 namespace Pagination
 {
     public class Program

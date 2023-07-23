@@ -20,7 +20,7 @@ namespace Pagination
             }
         }
         public int TotalPageCount { get; set; }
-        private List<T> AllData{ get; set; }
+        private List<T> AllData { get; set; }
         public IEnumerable<T> CurrentPage { get; set; }
 
         public Pagination(List<T> values, int? userPageSize = null, int? userpageNumber = null)
@@ -35,10 +35,7 @@ namespace Pagination
 
         private IEnumerable<T> PopulateCurrentPage()
         {
-            //values.Where();
-            var paginatedValues = AllData
-                .Skip((PageNumber - 1) * PageSize)
-                .Take(PageSize);
+            var paginatedValues = QueryItems(PageNumber - 1);
             CurrentPage = paginatedValues;
 
             return CurrentPage;
@@ -46,15 +43,12 @@ namespace Pagination
 
         public Pagination<T> NextPage()
         {
-            if(PageNumber + 1 > TotalPageCount)
+            if (PageNumber + 1 > TotalPageCount)
             {
                 CurrentPage = new List<T>();
                 return this;
             }
-            
-            var paginatedValues = AllData
-                .Skip((PageNumber) * PageSize)
-                .Take(PageSize);
+            var paginatedValues = QueryItems(PageNumber);
             CurrentPage = paginatedValues;
             PageNumber++;
 
@@ -68,14 +62,18 @@ namespace Pagination
                 CurrentPage = new List<T>();
                 return this;
             }
-            
-            var paginatedValues = AllData
-                .Skip((PageNumber - 2) * PageSize)
-                .Take(PageSize);
+
+            var paginatedValues = QueryItems(PageNumber - 2);
             CurrentPage = paginatedValues;
             PageNumber--;
 
             return this;
+        }
+
+        private IEnumerable<T> QueryItems(int numberOfPagesToSkip)
+        {
+            return
+                AllData.Skip((numberOfPagesToSkip) * PageSize).Take(PageSize);
         }
     }
 }
