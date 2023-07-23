@@ -6,8 +6,8 @@ namespace Pagination
         const int DEFAULT_PAGESIZE = 10;
         const int DEFAULT_PAGE = 1;
         private int pageSize;
+        private List<T> AllData { get; set; }
 
-        public int PageNumber { get; set; }
         public int PageSize
         {
             get
@@ -19,8 +19,8 @@ namespace Pagination
                 pageSize = value;
             }
         }
+        public int PageNumber { get; set; }
         public int TotalPageCount { get; set; }
-        private List<T> AllData { get; set; }
         public IEnumerable<T> CurrentPage { get; set; }
 
         public Pagination(List<T> values, int? userPageSize = null, int? userpageNumber = null)
