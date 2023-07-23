@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Pagination.Controllers
 {
@@ -16,14 +17,25 @@ namespace Pagination.Controllers
         }
 
         [HttpGet(Name = "books")]
-        public IEnumerable<Book> GetAll(int? pageSize = null, int? page = null, int? cursor = null)
+        public IEnumerable<Book> GetAll(int? pageSize = null, int? page = null)
         {
             var books = GenerateBooks();
-            Pagination<Book> paginatedBooks = new Pagination<Book>(books, pageSize, page);
-            var temp = paginatedBooks.PaginatedData;
-            var bla = paginatedBooks.TotalPageCount;
-            //return paginatedBooks.NextPage().PaginatedData;
-            return paginatedBooks.NextPage();
+            Pagination<Book> pager = new Pagination<Book>(books, pageSize, page);
+
+            while (pager.CurrentPage.Any())
+            {
+                var booksOnPage = pager.CurrentPage;
+                foreach (var book in booksOnPage)
+    {
+                    Console.WriteLine($"Bookd Id: {book.Id}");
+                    Console.WriteLine($"Book Title: {book.Title}");
+                    Console.WriteLine($"Book Description: {book.Description}");
+                    Console.WriteLine($"Book Author: {book.Author}");
+                }
+                pager = pager.NextPage();
+            }
+
+            return pager.CurrentPage;
         }
 
         private IEnumerable<Book> SimplePagination(List<Book> books, int? pageSize = null, int? cursor = null)
