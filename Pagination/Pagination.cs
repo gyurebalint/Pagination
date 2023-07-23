@@ -78,18 +78,4 @@ namespace Pagination
             return this;
         }
     }
-
 }
-
-/*
-     public static class PaginationExtensions
-    {
-        public static Pagination<Book> NextPage(this Pagination<Book> pagination)
-        {
-            pagination.PaginatedData = pagination.AllData.Skip(pagination.PageNumber * pagination.PageSize).Take(pagination.PageSize);
-            pagination.PageNumber = pagination.PageNumber + 1;
-
-            return pagination;
-        }
-    }
- */
