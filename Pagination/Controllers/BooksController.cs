@@ -21,19 +21,6 @@ namespace Pagination.Controllers
             var books = GenerateBooks();
             Pagination<Book> pager = new Pagination<Book>(books, pageSize, page);
 
-            while (pager.CurrentPage.Any())
-            {
-                var booksOnPage = pager.CurrentPage;
-                foreach (var book in booksOnPage)
-    {
-                    Console.WriteLine($"Bookd Id: {book.Id}");
-                    Console.WriteLine($"Book Title: {book.Title}");
-                    Console.WriteLine($"Book Description: {book.Description}");
-                    Console.WriteLine($"Book Author: {book.Author}");
-                }
-                pager = pager.NextPage();
-            }
-
             return pager.CurrentPage;
         }
 
