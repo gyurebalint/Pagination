@@ -1,5 +1,7 @@
 # Pagination
  Quick generic pagination implementation
+ 
+ Implementation can be found in [this class](./Pagination/Pagination.cs)
 
  ## Usage
 
